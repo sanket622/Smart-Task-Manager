@@ -110,7 +110,7 @@ function App() {
             </div>
           </div>
         ) : (
-          <div>
+          <div className="login-section">
             <div className="form-group">
               <select onChange={(e) => e.target.value && handleLogin(e.target.value)}>
                 <option value="">Select user to login</option>
