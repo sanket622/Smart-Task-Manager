@@ -84,22 +84,30 @@ function TaskForm({ users, tasks, onSubmit, onCancel }) {
         </div>
         <div className="form-group">
           <label>Dependencies:</label>
-          <div>
-            {tasks.map(task => (
-              <div key={task.id}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={formData.dependencies.includes(task.id)}
-                    onChange={(e) => handleDependencyChange(task.id, e.target.checked)}
-                  />
-                  {task.title}
-                </label>
-              </div>
-            ))}
+          <div className="dependencies-list">
+            {tasks.length === 0 ? (
+              <p style={{ color: '#666', fontStyle: 'italic' }}>No existing tasks to depend on</p>
+            ) : (
+              tasks.map(task => (
+                <div key={task.id} className="dependency-item">
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={formData.dependencies.includes(task.id)}
+                      onChange={(e) => handleDependencyChange(task.id, e.target.checked)}
+                      style={{ margin: 0 }}
+                    />
+                    <span>{task.title}</span>
+                    <span className={`priority priority-${task.priority.toLowerCase()}`} style={{ marginLeft: 'auto' }}>
+                      {task.priority}
+                    </span>
+                  </label>
+                </div>
+              ))
+            )}
           </div>
         </div>
-        <div>
+        <div className="form-actions">
           <button type="submit" className="btn btn-primary">Create Task</button>
           <button type="button" className="btn btn-secondary" onClick={onCancel}>Cancel</button>
         </div>

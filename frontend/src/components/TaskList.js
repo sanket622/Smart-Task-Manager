@@ -48,13 +48,13 @@ function TaskList({ tasks, users, onUpdateTask, onDeleteTask }) {
 
       <div className="task-list">
         {filteredTasks.length === 0 ? (
-          <div className="task-item">No tasks found</div>
+          <div className="no-tasks">No tasks found</div>
         ) : (
           filteredTasks.map(task => (
             <div key={task.id} className="task-item">
               <div className="task-header">
                 <div className="task-title">{task.title}</div>
-                <div>
+                <div className="task-badges">
                   <span className={`priority priority-${task.priority.toLowerCase()}`}>
                     {task.priority}
                   </span>
@@ -64,14 +64,16 @@ function TaskList({ tasks, users, onUpdateTask, onDeleteTask }) {
                 </div>
               </div>
               
-              <p>{task.description}</p>
-              <p><strong>Assigned to:</strong> {getUserName(task.assignedTo)}</p>
+              <div className="task-description">{task.description}</div>
               
-              {task.dependencies.length > 0 && (
-                <p><strong>Dependencies:</strong> {task.dependencies.length} task(s)</p>
-              )}
+              <div className="task-meta">
+                <p><strong>Assigned to:</strong> {getUserName(task.assignedTo)}</p>
+                {task.dependencies.length > 0 && (
+                  <p><strong>Dependencies:</strong> {task.dependencies.length} task(s)</p>
+                )}
+              </div>
               
-              <div style={{ marginTop: '10px' }}>
+              <div className="task-actions">
                 <select
                   value={task.status}
                   onChange={(e) => handleStatusChange(task.id, e.target.value)}
@@ -84,7 +86,6 @@ function TaskList({ tasks, users, onUpdateTask, onDeleteTask }) {
                 <button
                   className="btn btn-danger"
                   onClick={() => onDeleteTask(task.id)}
-                  style={{ marginLeft: '10px' }}
                 >
                   Delete
                 </button>

@@ -36,7 +36,7 @@ function UserForm({ onSubmit, onCancel }) {
             required
           />
         </div>
-        <div>
+        <div className="form-actions">
           <button type="submit" className="btn btn-primary">Create User</button>
           <button type="button" className="btn btn-secondary" onClick={onCancel}>Cancel</button>
         </div>
